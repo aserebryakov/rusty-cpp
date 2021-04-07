@@ -19,5 +19,44 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+#pragma once
 
+#include <variant>
 
+namespace rusty {
+    template <typename T>
+    struct Ok {
+        Ok(const T& v) : value{v} {
+        }
+
+        T value;
+    };
+
+    template <typename T>
+    struct Err {
+        Err(const T& v) : value(v) {
+        }
+
+        T value;
+    };
+
+    template <typename OK, typename ERR>
+    class Result {
+        public:
+            Result(Ok<OK>&& ok) : value{ok} {
+            }
+
+            Result(Err<ERR>&& err) : value{err} {
+            }
+
+            bool is_ok() const {
+                return std::holds_alternative<Ok<OK>>(value);
+            }
+
+            bool is_err() const {
+                return std::holds_alternative<Err<ERR>>(value);
+            }
+        private:
+            std::variant<Ok<OK>, Err<ERR>> value;
+    };
+}

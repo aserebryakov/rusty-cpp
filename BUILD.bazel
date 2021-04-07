@@ -9,6 +9,7 @@ cc_library(
     ],
     linkstatic = True,
     deps = [],
+    copts = ["--std=c++17"]
 )
 
 cc_test(
@@ -20,4 +21,5 @@ cc_test(
         "@gtest//:gtest",
         "@gtest//:gtest_main"
     ],
+    copts = ["--std=c++17"]
 )
