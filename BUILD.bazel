@@ -10,3 +10,14 @@ cc_library(
     linkstatic = True,
     deps = [],
 )
+
+cc_test(
+    name = "rusty_test",
+    srcs = [
+        "tests/result_test.cc"
+    ],
+    deps = [":rusty_lib",
+        "@gtest//:gtest",
+        "@gtest//:gtest_main"
+    ],
+)
