@@ -10,6 +10,8 @@ TEST(ResultTest, OkInitialization) {
     Result<int, std::string> result{Ok{1}};
     EXPECT_TRUE(result.is_ok());
     EXPECT_FALSE(result.is_err());
+    EXPECT_TRUE(result.ok().has_value());
+    EXPECT_EQ(result.ok().value(), 1);
 }
 
 TEST(ResultTest, ErrInitialization) {

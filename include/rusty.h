@@ -22,6 +22,7 @@
 #pragma once
 
 #include <variant>
+#include <optional>
 
 namespace rusty {
     template <typename T>
@@ -51,6 +52,14 @@ namespace rusty {
 
             bool is_ok() const {
                 return std::holds_alternative<Ok<OK>>(value);
+            }
+
+            std::optional<OK> ok() {
+               if (is_ok()) {
+                   return std::optional<OK>(std::get<0>(value));
+               }
+
+               return std::nullopt;
             }
 
             bool is_err() const {
