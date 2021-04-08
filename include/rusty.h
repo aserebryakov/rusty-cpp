@@ -56,7 +56,7 @@ namespace rusty {
 
             std::optional<OK> ok() {
                if (is_ok()) {
-                   return std::optional<OK>(std::get<0>(value));
+                   return std::optional<OK>(std::get<Ok<OK>>(value).value);
                }
 
                return std::nullopt;
@@ -65,6 +65,15 @@ namespace rusty {
             bool is_err() const {
                 return std::holds_alternative<Err<ERR>>(value);
             }
+
+            std::optional<ERR> err() {
+               if (is_err()) {
+                   return std::optional<ERR>(std::get<Err<ERR>>(value).value);
+               }
+
+               return std::nullopt;
+            }
+
         private:
             std::variant<Ok<OK>, Err<ERR>> value;
     };

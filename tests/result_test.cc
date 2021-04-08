@@ -18,4 +18,6 @@ TEST(ResultTest, ErrInitialization) {
     Result<int, std::string> result{Err{std::string{"error"}}};
     EXPECT_FALSE(result.is_ok());
     EXPECT_TRUE(result.is_err());
+    EXPECT_TRUE(result.err().has_value());
+    EXPECT_EQ(result.err().value(), "error");
 }
