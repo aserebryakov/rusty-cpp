@@ -74,6 +74,10 @@ namespace rusty {
                return std::nullopt;
             }
 
+            OK unwrap() {
+               return std::get<Ok<OK>>(value).value;
+            }
+
         private:
             std::variant<Ok<OK>, Err<ERR>> value;
     };

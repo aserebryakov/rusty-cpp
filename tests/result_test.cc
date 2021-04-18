@@ -21,3 +21,13 @@ TEST(ResultTest, ErrInitialization) {
     EXPECT_TRUE(result.err().has_value());
     EXPECT_EQ(result.err().value(), "error");
 }
+
+TEST(ResultTest, UnwrapOkTest) {
+    Result<int, std::string> result{Ok{1}};
+    EXPECT_EQ(result.unwrap(), 1);
+}
+
+TEST(ResultTest, UnwrapErrTest) {
+    Result<int, std::string> result{Err{std::string{"error"}}};
+    EXPECT_THROW(result.unwrap(), std::exception);
+}
